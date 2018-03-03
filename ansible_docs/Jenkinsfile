@@ -14,6 +14,10 @@ node {
             colorized: true
         )
     }
+    waitUntil {
+        please butto next
+        // some block
+    }
 }
 
 stage 'checking date time'
