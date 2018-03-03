@@ -14,10 +14,7 @@ node {
             colorized: true
         )
     }
-    waitUntil {
-        please butto next
-        // some block
-    }
+    input '是否继续?'
 }
 
 stage 'checking date time'
