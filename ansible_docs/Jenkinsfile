@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 
-stage ('检测是否可以连接外网'){
+stage ('检测外网连接'){
     node {
         deleteDir()
         checkout scm
@@ -10,7 +10,7 @@ stage ('检测是否可以连接外网'){
             ansiblePlaybook(
                 playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
                 inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                extras: '-e url=www.baidu.com',
+                extras: '-e url=${env.url}',
                 colorized: true
             )
         }
