@@ -10,4 +10,14 @@ node{
     stage('检出文件') {
         checkout scm
     }
+    stage ('检测是否可以连接外网') {
+        ansiColor('xterm'){
+            ansiblePlaybook(
+                playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
+                inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                extras: "-e check_url='${params.url}'",
+                colorized: true
+            )
+        }
+    }
 }
