@@ -16,7 +16,7 @@ pipeline {
     stages {
 
         stage ('检测外网连接'){
-            wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
+            ansiColor('xterm'){
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
                     inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
@@ -28,7 +28,7 @@ pipeline {
         }
 
         stage ('检测系统时间'){
-            wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
+           ansiColor('xterm'){
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
                     inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
@@ -38,7 +38,7 @@ pipeline {
         }
 
         stage ('检测系统定时任务'){
-            wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
+            ansiColor('xterm'){
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
                     inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
