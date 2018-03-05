@@ -2,7 +2,9 @@
 
 pipeline {
 
-    parameters(name: 'url', defaultValue: "www.baidu.com", description: "检测所需URL")
+    parameters{
+        string(name: 'url', defaultValue: "www.baidu.com", description: "检测所需URL")
+    }
 
     stage ('检测外网连接'){
         node {
