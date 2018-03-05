@@ -6,7 +6,7 @@ node {
     deleteDir()
     checkout scm
 
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
+    ansiColor('xterm'){
         ansiblePlaybook(
             playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
             inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
@@ -20,7 +20,7 @@ node {
 stage '检测系统时间'
 
 node {
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
+   ansiColor('xterm'){
         ansiblePlaybook(
             playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
             inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
@@ -32,7 +32,7 @@ node {
 stage '检测系统定时任务'
 
 node {
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
+   ansiColor('xterm'){
         ansiblePlaybook(
             playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
             inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
