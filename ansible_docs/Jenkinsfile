@@ -4,9 +4,9 @@ pipeline {
     agent any
         parameters {
             string(
-                name: 'Path',
-                defaultValue:"/home/pencillr/builds/",
-                description: "Where to put the build!")
+                name: 'check_url',
+                defaultValue:"",
+                description: "Where to put the url")
     }
     stages {
         stage ('检测是否可以连接外网') {
