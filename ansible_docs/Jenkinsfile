@@ -1,12 +1,7 @@
 #!/usr/bin/env groovy
-pipeline {
 
-    parameters {
-        string(name: 'url', description: "测试外网的URL")
-    }
 
-    stage '检测是否可以连接外网'
-
+stage ('检测是否可以连接外网'){
     node {
         deleteDir()
         checkout scm
@@ -15,15 +10,15 @@ pipeline {
             ansiblePlaybook(
                 playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
                 inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                extras: '-e url=params.url',
+                extras: '-e url=www.baidu.com',
                 colorized: true
             )
         }
         input '是否继续?'
     }
+}
 
-    stage '检测系统时间'
-
+stage ('检测系统时间'){
     node {
         wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
             ansiblePlaybook(
@@ -33,9 +28,9 @@ pipeline {
             )
         }
     }
+}
 
-    stage '检测系统定时任务'
-
+stage ('检测系统定时任务'){
     node {
         wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
             ansiblePlaybook(
@@ -44,5 +39,5 @@ pipeline {
                 colorized: true
             )
         }
-}
+    }
 }
