@@ -2,6 +2,9 @@
 
 pipeline {
     agent any
+    node {
+        checkout scm
+    }
         parameters {
             string(
                 name: 'url',
