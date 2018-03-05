@@ -4,7 +4,7 @@ parameters {
     string(
         name: 'url',
         defaultValue:"",
-        description: "Where to put the url")
+        description: "输入需要外网测试URL例如: www.baidu.com")
 }
 node{
     stage('检出文件') {
@@ -27,6 +27,15 @@ node{
         ansiColor('xterm'){
             ansiblePlaybook(
                 playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
+                inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                colorized: true
+            )
+        }
+    }
+    stage ('检测系统定时任务') {
+        ansiColor('xterm'){
+            ansiblePlaybook(
+                playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
                 inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
                 colorized: true
             )
