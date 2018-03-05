@@ -34,7 +34,7 @@ stage '检测系统定时任务'
 node {
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
         ansiblePlaybook(
-            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml'
+            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
             inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
             colorized: true
         )
