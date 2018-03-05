@@ -20,4 +20,17 @@ node{
             )
         }
     }
+
+    input '是否继续?'
+
+    stage ('检测系统时间') {
+        ansiColor('xterm'){
+            ansiblePlaybook(
+                playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
+                inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                colorized: true
+            )
+        }
+    }
+
 }
