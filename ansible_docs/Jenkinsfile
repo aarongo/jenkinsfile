@@ -1,44 +1,11 @@
 #!/usr/bin/env groovy
 
-parameters { string(name: 'check_url', defaultValue: '', description: '') }
-
-stage '检测是否可以连接外网'
-
-node {
-    deleteDir()
-    checkout scm
-
-    ansiColor('xterm'){
-        ansiblePlaybook(
-            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
-            inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-            extras: '-e check_url=${params.check_url}',
-            colorized: true
-        )
-    }
-    input '是否继续?'
-}
-
-stage '检测系统时间'
-
-node {
-   ansiColor('xterm'){
-        ansiblePlaybook(
-            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
-            inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-            colorized: true
-        )
-    }
-}
-
-stage '检测系统定时任务'
-
-node {
-   ansiColor('xterm'){
-        ansiblePlaybook(
-            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
-            inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-            colorized: true
-        )
+pipeline {
+    agent any
+    parameters {
+        striing(
+            name: "check_url",
+            defaultValue: "",
+            description: "")
     }
 }
