@@ -9,14 +9,18 @@ pipeline {
                 description: "Where to put the build!")
     }
     stages {
-        stage("build") {
+        stage ('检测是否可以连接外网') {
             steps {
-                script {
-                    build(job: "builder-job",
-                        parameters:
-                        [string(name: 'Path', value: "${params.Path}")])
-                }
+                 ansiColor('xterm'){
+                ansiblePlaybook(
+                    playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
+                    inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                    extras: '-e check_url=${params.check_url}',
+                    colorized: true
+                )
             }
+            }
+        input '是否继续?'
         }
     }
 }
