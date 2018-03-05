@@ -4,7 +4,7 @@ pipeline {
     agent any
         parameters {
             string(
-                name: 'check_url',
+                name: 'url',
                 defaultValue:"",
                 description: "Where to put the url")
     }
@@ -15,7 +15,7 @@ pipeline {
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
                     inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                    extras: '-e check_url=${params.check_url}',
+                    extras: "-e check_url=${params.url}",
                     colorized: true
                 )
                 }
