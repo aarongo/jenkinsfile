@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-stage 'Checking connectivity'
+stage '检测是否可以连接外网'
 
 node {
     deleteDir()
@@ -17,7 +17,7 @@ node {
     input '是否继续?'
 }
 
-stage 'checking date time'
+stage '检测系统时间'
 
 node {
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
@@ -29,7 +29,7 @@ node {
     }
 }
 
-stage 'checking crond'
+stage '检测系统定时任务'
 
 node {
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
