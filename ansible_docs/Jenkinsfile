@@ -22,5 +22,27 @@ pipeline {
             input '是否继续?'
             }
         }
+        stage ('检测系统时间') {
+            steps {
+                ansiColor('xterm'){
+                    ansiblePlaybook(
+                        playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
+                        inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                        colorized: true
+                    )
+                }
+            }
+        }
+        stage ('检测系统定时任务') {
+            steps {
+                ansiColor('xterm'){
+                    ansiblePlaybook(
+                        playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
+                        inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                        colorized: true
+                    )
+                }
+            }
+        }
     }
 }
