@@ -1,17 +1,18 @@
 #!/usr/bin/env groovy
 
-pipeline {
-    agent any
-    node {
-        checkout scm
-    }
-        parameters {
-            string(
-                name: 'url',
-                defaultValue:"",
-                description: "Where to put the url")
+node {
+    parameters {
+        string(
+            name: 'url',
+            defaultValue:"",
+            description: "Where to put the url")
     }
     stages {
+        state ('检出文件') {
+            steps {
+                 checkout scm
+            }
+        }
         stage ('检测是否可以连接外网') {
             steps {
                 ansiColor('xterm'){
