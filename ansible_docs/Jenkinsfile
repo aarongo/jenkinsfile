@@ -1,50 +1,13 @@
 #!/usr/bin/env groovy
 
-node {
-    parameters {
-        string(
-            name: 'url',
-            defaultValue:"",
-            description: "Where to put the url")
-    }
-    state ('检出文件') {
-        steps {
-             checkout scm
-        }
-    }
-    stage ('检测是否可以连接外网') {
-        steps {
-            ansiColor('xterm'){
-            ansiblePlaybook(
-                playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
-                inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                extras: "-e check_url='${params.url}'",
-                colorized: true
-            )
-            }
-        input '是否继续?'
-        }
-    }
-    stage ('检测系统时间') {
-        steps {
-            ansiColor('xterm'){
-                ansiblePlaybook(
-                    playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
-                    inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                    colorized: true
-                )
-            }
-        }
-    }
-    stage ('检测系统定时任务') {
-        steps {
-            ansiColor('xterm'){
-                ansiblePlaybook(
-                    playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
-                    inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                    colorized: true
-                )
-            }
-        }
+parameters {
+    string(
+        name: 'url',
+        defaultValue:"",
+        description: "Where to put the url")
+}
+node{
+    stage('检出文件') {
+        checkout scm
     }
 }
