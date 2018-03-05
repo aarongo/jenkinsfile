@@ -15,7 +15,7 @@ pipeline {
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
                     inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                    extras: "-e check_url=${params.url}",
+                    extras: "-e check_url='${params.url}'",
                     colorized: true
                 )
                 }
