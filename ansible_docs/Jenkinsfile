@@ -1,13 +1,20 @@
 #!/usr/bin/env groovy
 
+node {
+    checkout scm 
+}
+
 pipeline {
+
+    agent any
 
     parameters{
         string(name: 'url', defaultValue: "www.baidu.com", description: "检测所需URL")
     }
 
-    stage ('检测外网连接'){
-        node {
+    stages {
+
+        stage ('检测外网连接'){
             deleteDir()
             checkout scm
 
@@ -21,10 +28,8 @@ pipeline {
             }
             input '是否继续?'
         }
-    }
 
-    stage ('检测系统时间'){
-        node {
+        stage ('检测系统时间'){
             wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
@@ -33,10 +38,8 @@ pipeline {
                 )
             }
         }
-    }
 
-    stage ('检测系统定时任务'){
-        node {
+        stage ('检测系统定时任务'){
             wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
