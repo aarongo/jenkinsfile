@@ -3,7 +3,7 @@
 pipeline {
     agent any
     parameters {
-        striing(
+        string(
             name: "check_url",
             defaultValue: "",
             description: "")
