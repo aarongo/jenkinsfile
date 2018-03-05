@@ -1,42 +1,50 @@
 #!/usr/bin/env groovy
 
-stage '检测是否可以连接外网'
-
 node {
     deleteDir()
-    checkout scm
-
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
-        ansiblePlaybook(
-            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
-            inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-            extras: '-e url=www.baidu.com',
-            colorized: true
-        )
-    }
-    input '是否继续?'
+    checkout scm 
 }
 
-stage '检测系统时间'
+pipeline {
 
-node {
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
-        ansiblePlaybook(
-            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
-            inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-            colorized: true
-        )
+    agent any
+
+    parameters{
+        string(name: 'check_url', defaultValue: "www.baidu.com", description: "检测所需URL")
     }
-}
 
-stage '检测系统定时任务'
+    stages {
 
-node {
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']){
-        ansiblePlaybook(
-            playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
-            inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-            colorized: true
-        )
+        stage ('检测外网连接'){
+            ansiColor('xterm'){
+                ansiblePlaybook(
+                    playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
+                    inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                    extras: '-e check_url=${params.check_url}',
+                    colorized: true
+                )
+            }
+            input '是否继续?'
+        }
+
+        stage ('检测系统时间'){
+           ansiColor('xterm'){
+                ansiblePlaybook(
+                    playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/time.yml',
+                    inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                    colorized: true
+                )
+            }
+        }
+
+        stage ('检测系统定时任务'){
+            ansiColor('xterm'){
+                ansiblePlaybook(
+                    playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/crontab.yml',
+                    inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
+                    colorized: true
+                )
+            }
+        }
     }
 }
