@@ -10,7 +10,7 @@ node {
         ansiblePlaybook(
             playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
             inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-            extras: '-e url=www.baidu.com',
+            extras: '-e check_url=www.baidu.com',
             colorized: true
         )
     }
