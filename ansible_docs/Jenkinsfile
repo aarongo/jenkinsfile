@@ -1,6 +1,9 @@
 #!/usr/bin/env groovy
 
 pipeline {
+
+    parameters(name: 'url', defaultValue: "www.baidu.com", description: "检测所需URL")
+
     stage ('检测外网连接'){
         node {
             deleteDir()
@@ -10,7 +13,7 @@ pipeline {
                 ansiblePlaybook(
                     playbook: '/Users/lonny/Documents/Ansible_Book/playbooks/pipeline_yml/ping.yml',
                     inventory: '/Users/lonny/Documents/Ansible_Book/playbooks/inventory/hosts',
-                    extras: '-e check_url=${env.url}',
+                    extras: '-e check_url=${params.url}',
                     colorized: true
                 )
             }
