@@ -6,8 +6,10 @@ node {
 
         checkout scm
     }
-    stage('test') {
-      sh "echo ssssss"
-    }
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
 
+        app = docker.build("jenkinsfile/docker_build/centos_java1.7/tomcat7")
+    }
 }
