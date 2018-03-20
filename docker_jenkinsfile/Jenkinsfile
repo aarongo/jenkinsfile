@@ -1,6 +1,5 @@
 node {
   def app
-  agent { dockerfile true }
   environment {
         IMAGE = readMavenPom().getArtifactId()    //Use Pipeline Utility Steps
         VERSION = readMavenPom().getVersion()
