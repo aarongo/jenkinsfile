@@ -1,4 +1,5 @@
 pipeline {
+  def app
   agent { dockerfile true }
   environment {
         IMAGE = readMavenPom().getArtifactId()    //Use Pipeline Utility Steps
@@ -7,7 +8,14 @@ pipeline {
   options {
     ansiColor colorMapName: 'XTerm'
   }
+  
   stages {
+    stage('Build image') {
+    /* This builds the actual image; synonymous to
+        * docker build on the command line */
+
+    app = docker.build("jenkinsfile/docker_build/centos_java1.7/tomcat7")
+    }
     stage('Build') {
       steps {
         sh "echo ${IMAGE}:${VERSION}"
