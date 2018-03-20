@@ -4,9 +4,6 @@ node {
         IMAGE = readMavenPom().getArtifactId()    //Use Pipeline Utility Steps
         VERSION = readMavenPom().getVersion()
     }
-  options {
-    ansiColor colorMapName: 'XTerm'
-  }
   stage('Build image') {
     /* This builds the actual image; synonymous to
         * docker build on the command line */
