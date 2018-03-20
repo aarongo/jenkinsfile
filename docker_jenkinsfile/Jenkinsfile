@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("docker_jenkinsfile/docker_build/centos_java1.7/tomcat7")
+        app = docker.build("jenkinsfile/docker_jenkinsfile/docker_build/centos_java1.7/tomcat7")
     }
 
     stage('Test image') {
