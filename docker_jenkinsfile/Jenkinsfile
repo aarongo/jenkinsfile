@@ -1,36 +1,3 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
-    }
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        app = docker.build("jenkinsfile/docker_build/centos_java1.7/tomcat7")
-    }
-}
-node("docker") {
-    docker.withRegistry('<<your-docker-registry>>', '<<your-docker-registry-credentials-id>>') {
-    
-        git url: "<<your-git-repo-url>>", credentialsId: '<<your-git-credentials-id>>'
-    
-        sh "git rev-parse HEAD > .git/commit-id"
-        def commit_id = readFile('.git/commit-id').trim()
-        println commit_id
-    
-        stage "build"
-        def app = docker.build "your-project-name"
-    
-        stage "publish"
-        app.push 'master'
-        app.push "${commit_id}"
-    }
-}
-
 pipeline {
   agent { label 'docker' }
   environment {
