@@ -6,21 +6,8 @@ node {
 
         checkout scm
     }
-
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        app = docker.build("jenkinsfile/docker_jenkinsfile/docker_build/centos_java1.7/tomcat7")
-    }
-
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
-
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
+    stage('test') {
+      sh "echo ssssss"
     }
 
 }
